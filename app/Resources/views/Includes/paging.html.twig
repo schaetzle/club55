@@ -1,0 +1,25 @@
+{% set pages = paginator.getPages() %}
+
+{% if pages.pageCount > 1 %}
+    <ul class="pagination">
+        {% if pages.previous is defined %}
+            {% if pages.previous %}
+                <li><a href="{{ pimcore_url({ page: pages.first }) }}">Previous</a></li>
+            {% endif %}
+        {% endif %}
+
+        {% for page in pages.pagesInRange %}
+            {% if page == pages.current  %}
+                <li class="active"><span>{{ page }}</span></li>
+            {% else %}
+                <li><a href="{{ pimcore_url({ page: page }) }}">{{ page }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if pages.next is defined %}
+            {% if pages.next %}
+                <li><a href="{{ pimcore_url({ page: pages.last }) }}">Next</a></li>
+            {% endif %}
+        {% endif %}
+    </ul>
+{% endif %}

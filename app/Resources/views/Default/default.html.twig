@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% set headline = pimcore_input('headline') %}
+{% set hideHeadline = document.getProperty('hideHeadline') %}
+{% set content = pimcore_wysiwyg('content') %}
+
+{% block content %}
+    {# include('Includes/content-default.html.twig') #}
+
+    {% if not hideHeadline %}
+        <div class="page-header">
+            {# we need to pipe the editable through the raw filter here as we saved it to a variable #}
+            <h1 class="underlined">{{ document.getTitle() }}</h1>
+        </div>
+    {% endif %}
+
+    <section class="area-wysiwyg">
+        {% pimcoreglossary %}
+            {{ content|raw }}
+        {% endpimcoreglossary %}
+    </section>
+
+{% endblock %}

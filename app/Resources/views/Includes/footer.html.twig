@@ -1,0 +1,38 @@
+<!-- FOOTER -->
+<footer>
+    {#
+    <ul class="nav navbar-nav navbar-right">
+        {{ include('Includes/login.html.twig') }}
+    </ul>
+    #}
+
+    {% if editmode %}
+        {{ pimcore_input("copyright_message") }}
+
+        {# styles only for editmode #}
+        <link rel="stylesheet" href="{{ asset('static/css/global.css') }}">
+
+        <h2>Font Awesome Icons</h2>
+        {% for i in pimcore_iterate_block(pimcore_block('contentblock')) %}
+            Font Awesome Code {{ pimcore_input('fa_code') }}
+        {% endfor %}
+
+        <h2>Links</h2>
+        {% for i in pimcore_iterate_block(pimcore_block('links')) %}
+            {{ pimcore_link('link') }}
+        {% endfor %}
+    {% else %}
+        <p class="pull-right">
+            <a href="#"><i class="fa fa-angle-up"></i></a>
+        </p>
+
+        <p class="links">
+            Copyright {{ "now"|date('Y') }} <a href="https://www.c2-development.de">{{ pimcore_input("copyright_message") }}</a>
+
+            {% for i in pimcore_iterate_block(pimcore_block('links')) %}
+                {{ pimcore_link('link') }}
+            {% endfor %}
+        </p>
+    {% endif %}
+
+</footer>

@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div id="blogpost-area">
+
+        {% set content = pimcore_wysiwyg('content') %}
+        <section class="area-wysiwyg">
+            {% pimcoreglossary %}
+                {{ content|raw }}
+            {% endpimcoreglossary %}
+        </section>
+
+        <ul class="row">
+            {% for member in members %}
+                <li class="col-md-3">
+                    <h2>{{ member.name }}</h2>
+                    <p>{% if member.getPosition %}{{ member.getPosition }}{% else %}&nbsp;{% endif %}</p>
+                    <div>
+                        {% if member.getImage != '' %}
+                            <img src="{{ member.getImage.getThumbnail("square500") }}" width="100%" />
+                        {% endif %}
+                    </div>
+                    <h3>Mitglied seit</h3>
+                    <strong>{{ member.getMemberSince|date("Y") }}</strong>
+                    <h3>Bahnmeister-Rekord</h3>
+                    -
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+{% endblock %}

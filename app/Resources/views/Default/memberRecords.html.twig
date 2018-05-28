@@ -1,0 +1,71 @@
+<h3>Statistiken 2018</h3>
+<table class="table table-bordered" id="evenings-list">
+    <tr>
+        <th>Anwesend</th>
+        <td>{{ countOn }} x</td>
+    </tr>
+    <tr>
+        <th>Bahnmeister</th>
+        <td>
+            {% if countBahnmeister > 0 %}
+                {{ countBahnmeister }} x
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Bestes Ergebnis</th>
+        <td>
+            {% if eveningUser != false %}
+                {{ eveningUser.getBahnmeisterResult }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Jahresschnitt</th>
+        <td>{{ yearAverage|round(2, 'floor') }}</td>
+    </tr>
+    <tr>
+        <th>Sonnenkönig</th>
+        <td>
+            {% if countSonnenkoenig > 0 %}
+                {{ countSonnenkoenig }} x
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Neuner</th>
+        <td class="text-center">
+            {% if neuner|length > 0 %}
+                {{ neuner|length }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Kränze</th>
+        <td class="text-center">
+            {% if banden|length > 0 %}
+                {{ banden|length }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Banden</th>
+        <td class="text-center">
+            {% if banden|length > 0 %}
+                {{ banden|length }}
+            {% else %}
+                -
+            {% endif %}
+        </td>
+    </tr>
+</table>

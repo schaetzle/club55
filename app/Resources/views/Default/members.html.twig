@@ -1,0 +1,41 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div id="members-area">
+
+        {% set hideHeadline = document.getProperty('hideHeadline') %}
+        {% if not hideHeadline %}
+            <div class="page-header">
+                {# we need to pipe the editable through the raw filter here as we saved it to a variable #}
+                <h1 class="underlined">{{ document.getTitle() }}</h1>
+            </div>
+        {% endif %}
+
+        {% set content = pimcore_wysiwyg('content') %}
+        <section class="area-wysiwyg">
+            {% pimcoreglossary %}
+                {{ content|raw }}
+            {% endpimcoreglossary %}
+        </section>
+
+        <ul class="row">
+            {% for member in members %}
+                <li class="col-md-3">
+                    <h2>{{ member.name }}</h2>
+                    <p>{% if member.getPosition %}{{ member.getPosition }}{% else %}&nbsp;{% endif %}</p>
+                    <div>
+                        {% if member.getImage != '' %}
+                            <img src="{{ member.getImage.getThumbnail("square500") }}" width="100%" />
+                        {% endif %}
+                    </div>
+                    <h3>Mitglied seit</h3>
+                    <strong>{{ member.getMemberSince|date("Y") }}</strong>
+                    {{ pimcore_action('memberRecords', 'Default', null, { member: member }) }}
+                </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+
+{% endblock %}

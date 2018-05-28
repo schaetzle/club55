@@ -1,0 +1,288 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div id="one-evening" class="clearfix">
+        {% set hideHeadline = document.getProperty('hideHeadline') %}
+        {% if not hideHeadline %}
+            <div class="page-header">
+                {# we need to pipe the editable through the raw filter here as we saved it to a variable #}
+                <h1 class="underlined">Kegelabend am {{ daynames[evening.getDate|date('w')] }}, den {{ evening.getDate|date('d.m.Y') }}</h1>
+            </div>
+        {% endif %}
+
+        <div class="col-xs-12 col-md-9">
+
+            {% if evening.getDate|date('Y-m-d') <= 'now'|date('Y-m-d') %}
+
+                <div class="row">
+
+                    <div class="col-xs-6">
+                        <div class="stats-area">
+                            <h2><i class="fa fa-play-circle"></i> Spiele</h2>
+                            <ul class="clean-list row stats-list">
+                                {% for game in games %}
+                                    <li class="col-xs-6">
+                                        {% if game.id in eveningGames|keys %}
+                                            <i class="fa fa-check-circle"></i>&nbsp;
+                                            <strong>
+                                        {% else %}
+                                            <i class="fa fa-times"></i>&nbsp;
+                                        {% endif %}
+                                        {{ game.getName }}
+                                        {% if game.id in eveningGames|keys %}
+                                            </strong>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <p>Insgesamt wurden <strong>{{ eveningGames|length }} Spiele</strong> gespielt.</p>
+                        </div>
+
+                        <div class="stats-area">
+                            <h2><i class="fa fa-users"></i> Mitglieder</h2>
+                            <ul class="clean-list row stats-list">
+                                {% for user in users %}
+                                    <li class="col-xs-4">
+                                        {% if user.id in eveningUsers|keys %}
+                                            <i class="fa fa-check-circle"></i>&nbsp;
+                                            <strong>
+                                        {% else %}
+                                            <i class="fa fa-times"></i>&nbsp;
+                                        {% endif %}
+                                        {{ user.getShort }}
+                                        {% if user.id in eveningUsers|keys %}
+                                            </strong>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                            <p>Insgesamt waren <strong>{{ eveningUsers|length }} Mitglieder</strong> anwesend.</p>
+                        </div>
+
+                        {% if evening.isFinished == 0 and app.request.cookies.get('pimcore_admin_sid') and eveningUsers|length > 0 %}
+                            <div class="stats-area">
+                                <h2><i class="fa fa-bowling-ball"></i> Würfe</h2>
+                                <form class="form-horizontal" role="form" action="" method="post">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Wurftyp</label>
+                                        <div class="col-lg-5">
+                                            <select name="etype" class="form-control">
+                                                <option value="1" selected="selected">Neuner</option>
+                                                <option value="2">Kranz</option>
+                                                <option value="3">Bande</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Mitspieler</label>
+                                        <div class="col-lg-7">
+                                            <select name="user" class="form-control">
+                                                {% for u in eveningUsers %}
+                                                    <option value="{{ u.id }}">{{ u.short }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-3 col-lg-10">
+                                            <input type="hidden" name="evening" value="{{ evening.id }}" />
+                                            <input type="hidden" name="form" value="1" />
+                                            <input type="submit" name="submit" class="btn btn-default" value="Eintragen">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="stats-area">
+                                <h2><i class="fa fa-bowling-ball"></i> Leistungen</h2>
+                                <form class="form-horizontal" role="form" id="evening-user-form" action="" method="post">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Mitspieler</label>
+                                        <div class="col-lg-7">
+                                            <select name="user2" class="form-control">
+                                                {% for u in eveningUsers %}
+                                                    <option value="{{ u.id }}">{{ u.short }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">9 | 8 | 0</label>
+                                        <div class="col-lg-8">
+                                            <input type="text" class="form-control short-input" name="neuner" /> <input type="text" class="form-control short-input" name="kraenze" /> <input type="text" class="form-control short-input" name="banden" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Bahnmeister</label>
+                                        <div class="col-lg-7 el-pull-left">
+                                            <select name="isBahnmeister" class="form-control">
+                                                <option value="0" selected="selected">nein</option>
+                                                <option value="1">ja</option>
+                                            </select>
+                                            <input type="text" class="form-control short-input" name="bahnmeisterResult" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Sonnenkönig</label>
+                                        <div class="col-lg-7 el-pull-left">
+                                            <select name="isSonnenkoenig" class="form-control">
+                                                <option value="0" selected="selected">nein</option>
+                                                <option value="1">ja</option>
+                                            </select>
+                                            <input type="text" class="form-control short-input" name="sonnenkoenigResult" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-lg-offset-3 col-lg-10">
+                                            <input type="hidden" name="evening" value="{{ evening.id }}" />
+                                            <input type="hidden" name="form" value="2" />
+                                            <input type="submit" name="submit" class="btn btn-default" value="Eintragen">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="col-xs-6">
+                        <h2><i class="fa fa-trophy"></i> Statistiken</h2>
+                        <div class="row stats-area">
+                            <div class="col-xs-6 member-list">
+                                <h3>Bahnmeister</h3>
+                                {% if evening.getBahnmeister %}
+                                    {% set member = evening.getBahnmeister %}
+                                    <p><strong>{{ member.name }}</strong></p>
+                                    {% if member.getImage != '' %}
+                                        <img src="{{ member.getImage.getThumbnail("square500") }}" />
+                                    {% endif %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </div>
+                            <div class="col-xs-6 member-list">
+                                <h3>Sonnenkönig</h3>
+                                {% if evening.getSonnenkoenig %}
+                                    {% set member = evening.getSonnenkoenig %}
+                                    <p><strong>{{ member.name }}</strong></p>
+                                    {% if member.getImage != '' %}
+                                        <img src="{{ member.getImage.getThumbnail("square500") }}" />
+                                    {% endif %}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="stats-area">
+                            <h3>Neuner</h3>
+                            {% if neuner|length > 0 %}
+                                <ul class="clean-list row member-list">
+                                    {% for neun in neuner %}
+                                        <li class="col-xs-2">
+                                            {% set member = neun.getUser %}
+                                            {% if member.getImage != '' %}
+                                                <img src="{{ member.getImage.getThumbnail("square500") }}" title="{{ member.getShort }}" />
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            <p>Insgesamt wurden <strong>{{ neuner|length }} Neuner</strong> geworfen.</p>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div>
+
+                        <div class="stats-area">
+                            <h3>Kränze</h3>
+                            {% if kraenze|length > 0 %}
+                                <ul class="clean-list row member-list">
+                                    {% for kranz in kraenze %}
+                                        <li class="col-xs-2">
+                                            {% set member = kranz.getUser %}
+                                            {% if member.getImage != '' %}
+                                                <img src="{{ member.getImage.getThumbnail("square500") }}" title="{{ member.getShort }}" />
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <p>Insgesamt wurden <strong>{{ kraenze|length }} Kränze</strong> geworfen.</p>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div>
+
+                        <div class="stats-area">
+                            <h3>Banden</h3>
+                            {% if banden|length > 0 %}
+                                <ul class="clean-list row member-list">
+                                    {% for band in banden %}
+                                        <li class="col-xs-2">
+                                            {% set member = band.getUser %}
+                                            {% if member.getImage != '' %}
+                                                <img src="{{ member.getImage.getThumbnail("square500") }}" width="96%" title="{{ member.getShort }}" />
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <p>Insgesamt wurden <strong>{{ banden|length }} Banden</strong> geworfen.</p>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <p>Dieser Kegelabend liegt in der Zukunft.</p>
+                <p>Sobald die Statistiken eingepflegt wurden, werden sie auf dieser Seite angezeigt.</p>
+
+            {% endif %}
+
+        </div>
+
+        <div class="col-xs-12 col-md-3" id="sidebar">
+
+            {% set months = [] %}
+
+            <div id="sidebar-kegelabende">
+                <p class="headline">Kegelabende {{ year }}</p>
+
+                {% for ev in evenings %}
+
+                    {% set month = ev.date|date("m") %}
+
+                    {% if loop.index == 1 %}
+                        {% set months = months|merge([month]) %}
+                        <div class="col-xs-6">
+                            <p class="month-name">{{ monthnames[ev.date|date('n')-1] }}</p>
+                            <ul class="clean-list">
+                    {% endif %}
+
+                    {% if month not in months %}
+                        {% set months = months|merge([month]) %}
+                            </ul>
+                        </div>
+                        <div class="col-xs-6">
+                            <p class="month-name">{{ monthnames[ev.date|date('n')-1] }}</p>
+                            <ul class="clean-list">
+                    {% endif %}
+
+                                <li>
+                                    <a href="{{ path('kegelabend', {'id': ev.getId}) }}">
+                                        {{ ev.date|date("d.m.Y") }}
+                                    </a>
+                                </li>
+
+                {% endfor %}
+                            </ul>
+                        </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

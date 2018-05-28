@@ -1,0 +1,98 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div id="home">
+
+        {% if editmode %}
+            {{ pimcore_href("myHref",{
+                "types": ["object"],
+                "subtypes": {
+                    "object": ["object"],
+                },
+                "classes": ["mySample"]
+            }) }}
+        {% else %}
+            {% if pimcore_href("myHref").getElement() is instanceof('\\Pimcore\\Model\\DataObject\\MySample')  %}
+                {{ pimcore_href("myHref").getElement().getMyInput() }}
+            {% endif %}
+        {% endif %}
+
+        {% set content = pimcore_wysiwyg('content') %}
+        <section class="area-wysiwyg">
+            {% pimcoreglossary %}
+                {{ content|raw }}
+            {% endpimcoreglossary %}
+        </section>
+
+        <section class="row">
+            <div class="col-md-4">
+                <div class="home-box clearfix" id="home-box-video">
+                    {#
+                    <video autoplay muted loop id="alle-neune-video">
+                        <source src="/var/assets/Alle-Neune.mp4" type="video/mp4">
+                        Ihr Browser unterstützt den Video Tag leider nicht.
+                    </video>
+                    #}
+                    <h2>Der nächste Kegelabend</h2>
+                    <div class="content">
+                        <span id="next-evening">
+                            {{ daynames[nextEvening.date|date('w')] }}<br/>
+                            {{ nextEvening.date|date('d.m.Y') }}
+                        </span><br/>
+                        {{ nextEvening.start|date('H:i') }} Uhr
+                    </div>
+                    <div class="footer">
+                        <a class="btn btn-default" href="/Kegelabende?year={{ "now"|date('Y') }}">
+                            Kegelabende {{ "now"|date('Y') }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="home-box">
+                    <h2>Unsere Mitglieder</h2>
+                    <div class="content">
+                        <ul class="clean-list members-list clearfix">
+                            {% for member in members %}
+                                <li class="col-md-3">
+                                    {% if member.getImage != '' %}
+                                        <img src="{{ member.getImage.getThumbnail("square500") }}" title="{{ member.name }}" />
+                                    {% else %}
+                                        {{ member.getName }}
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="footer">
+                        <a class="btn btn-default" href="/Mitglieder/">Unsere Mitglieder</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="home-box">
+                    <h2>Das spielen wir</h2>
+                    <div class="content">
+                        <ul class="clean-list games-list clearfix">
+                            {% for game in games %}
+                                <li class="col-md-4">
+                                    {% if game.getImage != '' %}
+                                        <img src="{{ game.getImage.getThumbnail("square500") }}" title="" width="75" />
+                                    {% else %}
+                                        {{ game.getName }}
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="footer">
+                        <a class="btn btn-default" href="/Spiele/">Alle Spiele</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}

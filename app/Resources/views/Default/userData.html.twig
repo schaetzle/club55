@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>{% set headline = pimcore_input('headline') %}</h1>
+
+    <div class="user-info">
+        {% if editmode %}
+            {{ pimcore_href("userData") }}
+        {% else %}
+            <div id="userData">
+
+                {% set userData = pimcore_href("userData").getElement() %}
+
+                <h2>{{ userData }}</h2>
+                <div class="content">
+                    <p><strong>Geworfene Neuner:</strong> {{ userData.neuner }}</p>
+                    <p><strong>Geworfene Kränze:</strong> {{ userData.kraenze }}</p>
+                    <p><strong>Geworfene Pudel:</strong> {{ userData.pudel }}</p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

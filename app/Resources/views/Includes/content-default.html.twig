@@ -1,0 +1,68 @@
+{% set headline = pimcore_input('headline') %}
+{% set hideHeadline = document.getProperty('hideHeadline') %}
+{% set content = pimcore_wysiwyg('content') %}
+
+{# include('Includes/content-headline.html.twig') #}
+
+{% do pimcore_head_title(headline.getData()) %}
+
+
+{% for blogpost in blogpostslist %}
+    <div class="post-preview">
+        <a href="{{ path('blogpost', {'id': blogpost.getId(), 'title': blogpost.getTitle()}) }}">
+            <h2 class="post-title">
+                {{ blogpost.getTitle }}
+            </h2>
+            {% if blogpost.getSubtitle != "" %}
+                <h3 class="post-subtitle">
+                    {{ blogpost.getSubtitle }}
+                </h3>
+            {% endif %}
+            {# blogpost.getContent #}
+        </a>
+        <p class="post-meta">Posted by <a href="#">{{ blogpost.getAuthor }}</a> on {{ blogpost.getBlogpostcreated|date('d.m.Y') }}</p>
+    </div>
+{% endfor %}
+
+{# include('Includes/paging.html.twig') #}
+
+<ul class="pager">
+    <li class="next">
+        <a href="#">Older Posts &rarr;</a>
+    </li>
+</ul>
+
+
+{{ pimcore_image("headerImage", {"thumbnail":"square500"}) }}
+
+{% if editmode %}
+    {{ pimcore_href("myHref",{
+        "types": ["object"],
+        "subtypes": {
+            "object": ["object"],
+        },
+        "classes": ["mySample"]
+    }) }}
+{% else %}
+    {% if pimcore_href("myHref").getElement() is instanceof('\\Pimcore\\Model\\DataObject\\MySample')  %}
+        {{ pimcore_href("myHref").getElement().getMyInput() }}
+    {% endif %}
+{% endif %}
+
+{% if not hideHeadline %}
+    <div class="page-header">
+
+
+        {# we need to pipe the editable through the raw filter here as we saved it to a variable #}
+        <h1>{{ document.getTitle() }}</h1>
+    </div>
+{% endif %}
+
+<section class="area-wysiwyg">
+    {% pimcoreglossary %}
+        {{ content|raw }}
+    {% endpimcoreglossary %}
+</section>
+
+{# pimcore_areablock('content2') #}
+

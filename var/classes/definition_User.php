@@ -1,0 +1,402 @@
+<?php 
+
+/** 
+* Generated at: 2018-03-07T21:45:06+01:00
+* Inheritance: no
+* Variants: no
+* Changed by: schaetzle (2)
+* IP: ::1
+
+
+Fields Summary: 
+- benutzer [user]
+- name [input]
+- short [input]
+- position [input]
+- image [image]
+- memberSince [date]
+- neuner [numeric]
+- kraenze [numeric]
+- pudel [slider]
+*/ 
+
+
+return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
+   'name' => 'User',
+   'description' => '',
+   'creationDate' => 0,
+   'modificationDate' => 1520455505,
+   'userOwner' => 2,
+   'userModification' => 2,
+   'parentClass' => '',
+   'useTraits' => '',
+   'allowInherit' => false,
+   'allowVariants' => false,
+   'showVariants' => false,
+   'layoutDefinitions' => 
+  Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+     'fieldtype' => 'panel',
+     'labelWidth' => 100,
+     'layout' => NULL,
+     'name' => 'pimcore_root',
+     'type' => NULL,
+     'region' => NULL,
+     'title' => NULL,
+     'width' => NULL,
+     'height' => NULL,
+     'collapsible' => NULL,
+     'collapsed' => NULL,
+     'bodyStyle' => NULL,
+     'datatype' => 'layout',
+     'permissions' => NULL,
+     'childs' => 
+    array (
+      0 => 
+      Pimcore\Model\DataObject\ClassDefinition\Layout\Panel::__set_state(array(
+         'fieldtype' => 'panel',
+         'labelWidth' => 100,
+         'layout' => NULL,
+         'name' => 'Layout',
+         'type' => NULL,
+         'region' => NULL,
+         'title' => '',
+         'width' => NULL,
+         'height' => NULL,
+         'collapsible' => false,
+         'collapsed' => false,
+         'bodyStyle' => '',
+         'datatype' => 'layout',
+         'permissions' => NULL,
+         'childs' => 
+        array (
+          0 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\User::__set_state(array(
+             'fieldtype' => 'user',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'value' => 5,
+                'key' => 'adler (Michael Adler)',
+              ),
+              1 => 
+              array (
+                'value' => 7,
+                'key' => 'bissdorf (Steffen Bißdorf)',
+              ),
+              2 => 
+              array (
+                'value' => 9,
+                'key' => 'dietz (Birgit Dietz)',
+              ),
+              3 => 
+              array (
+                'value' => 4,
+                'key' => 'polzer (Wolfgang Polzer)',
+              ),
+              4 => 
+              array (
+                'value' => 8,
+                'key' => 'roh (Udo Roh)',
+              ),
+              5 => 
+              array (
+                'value' => 2,
+                'key' => 'schaetzle',
+              ),
+              6 => 
+              array (
+                'value' => 6,
+                'key' => 'schaetzleh (Henry Schätzle)',
+              ),
+              7 => 
+              array (
+                'value' => 10,
+                'key' => 'stenger (Alfred Stenger)',
+              ),
+            ),
+             'width' => '',
+             'defaultValue' => NULL,
+             'optionsProviderClass' => NULL,
+             'optionsProviderData' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'name' => 'benutzer',
+             'title' => 'Benutzer',
+             'tooltip' => '',
+             'mandatory' => true,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          1 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'name' => 'name',
+             'title' => 'Name',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          2 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'name' => 'short',
+             'title' => 'Kürzel',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          3 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Input::__set_state(array(
+             'fieldtype' => 'input',
+             'width' => NULL,
+             'queryColumnType' => 'varchar',
+             'columnType' => 'varchar',
+             'columnLength' => 190,
+             'phpdocType' => 'string',
+             'regex' => '',
+             'unique' => false,
+             'name' => 'position',
+             'title' => 'Position',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          4 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Image::__set_state(array(
+             'fieldtype' => 'image',
+             'width' => 480,
+             'height' => 640,
+             'uploadPath' => '',
+             'queryColumnType' => 'int(11)',
+             'columnType' => 'int(11)',
+             'phpdocType' => '\\Pimcore\\Model\\Asset\\Image',
+             'name' => 'image',
+             'title' => 'Bild',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\Date::__set_state(array(
+             'fieldtype' => 'date',
+             'queryColumnType' => 'bigint(20)',
+             'columnType' => 'bigint(20)',
+             'phpdocType' => '\\Carbon\\Carbon',
+             'defaultValue' => NULL,
+             'useCurrentDate' => false,
+             'name' => 'memberSince',
+             'title' => 'Mitglied seit',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => false,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+          )),
+          6 => 
+          Pimcore\Model\DataObject\ClassDefinition\Layout\Fieldset::__set_state(array(
+             'fieldtype' => 'fieldset',
+             'labelWidth' => 100,
+             'name' => 'Layout',
+             'type' => NULL,
+             'region' => NULL,
+             'title' => 'Rekorde',
+             'width' => NULL,
+             'height' => NULL,
+             'collapsible' => false,
+             'collapsed' => false,
+             'bodyStyle' => '',
+             'datatype' => 'layout',
+             'permissions' => NULL,
+             'childs' => 
+            array (
+              0 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'name' => 'neuner',
+                 'title' => '9er',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              1 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Numeric::__set_state(array(
+                 'fieldtype' => 'numeric',
+                 'width' => '',
+                 'defaultValue' => NULL,
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'integer' => false,
+                 'unsigned' => false,
+                 'minValue' => NULL,
+                 'maxValue' => NULL,
+                 'unique' => false,
+                 'decimalSize' => NULL,
+                 'decimalPrecision' => NULL,
+                 'name' => 'kraenze',
+                 'title' => 'Kränze',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+              2 => 
+              Pimcore\Model\DataObject\ClassDefinition\Data\Slider::__set_state(array(
+                 'fieldtype' => 'slider',
+                 'width' => '',
+                 'height' => '',
+                 'minValue' => '',
+                 'maxValue' => '',
+                 'vertical' => false,
+                 'increment' => '',
+                 'decimalPrecision' => '',
+                 'queryColumnType' => 'double',
+                 'columnType' => 'double',
+                 'phpdocType' => 'float',
+                 'name' => 'pudel',
+                 'title' => 'Pudel',
+                 'tooltip' => '',
+                 'mandatory' => false,
+                 'noteditable' => false,
+                 'index' => false,
+                 'locked' => false,
+                 'style' => '',
+                 'permissions' => NULL,
+                 'datatype' => 'data',
+                 'relationType' => false,
+                 'invisible' => false,
+                 'visibleGridView' => false,
+                 'visibleSearch' => false,
+              )),
+            ),
+             'locked' => false,
+          )),
+        ),
+         'locked' => false,
+      )),
+    ),
+     'locked' => NULL,
+  )),
+   'icon' => '',
+   'previewUrl' => '',
+   'group' => '',
+   'showAppLoggerTab' => false,
+   'linkGeneratorReference' => '',
+   'propertyVisibility' => 
+  array (
+    'grid' => 
+    array (
+      'id' => true,
+      'path' => true,
+      'published' => true,
+      'modificationDate' => true,
+      'creationDate' => true,
+    ),
+    'search' => 
+    array (
+      'id' => true,
+      'path' => true,
+      'published' => true,
+      'modificationDate' => true,
+      'creationDate' => true,
+    ),
+  ),
+   'dao' => NULL,
+));

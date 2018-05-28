@@ -1,0 +1,81 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <div id="history" class="clearfix">
+
+        {% set hideHeadline = document.getProperty('hideHeadline') %}
+        {% if not hideHeadline %}
+            <div class="page-header">
+                {# we need to pipe the editable through the raw filter here as we saved it to a variable #}
+                <h1 class="underlined">{{ document.getTitle() }}</h1>
+            </div>
+        {% endif %}
+
+        {% set content = pimcore_wysiwyg('content') %}
+        <section class="area-wysiwyg">
+            {% pimcoreglossary %}
+                {{ content|raw }}
+            {% endpimcoreglossary %}
+        </section>
+
+        <div class="timeline" id="timeline">
+            <div id="timeline-head"></div>
+
+            <div class="timeline-container timeline-right">
+                <div class="timeline-content clearfix">
+                    <div class="timeline-year timeline-year-left">
+                        2017
+                    </div>
+                    <div class="timeline-text">
+                        Steffen Bißdorf wird Mitglied im Club
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-container timeline-left">
+                <div class="timeline-content clearfix">
+                    <div class="timeline-year timeline-year-right">
+                        2015
+                    </div>
+                    <div class="timeline-text">
+                        Der heutige Präsident Christian Schätzle tritt dem Club bei
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-container timeline-right">
+                <div class="timeline-content clearfix">
+                    <div class="timeline-year timeline-year-left">
+                        2015
+                    </div>
+                    <div class="timeline-text">
+                        Test
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-container timeline-left">
+                <div class="timeline-content clearfix">
+                    <div class="timeline-year timeline-year-right">
+                        2015
+                    </div>
+                    <div class="timeline-text">
+                        Test
+                    </div>
+                </div>
+            </div>
+            <div class="timeline-container timeline-right">
+                <div class="timeline-content clearfix">
+                    <div class="timeline-year timeline-year-left">
+                        1955
+                    </div>
+                    <div class="timeline-text">
+                        Test
+                    </div>
+                </div>
+            </div>
+
+            <div id="timeline-bottom"></div>
+        </div>
+
+    </div>
+
+{% endblock %}

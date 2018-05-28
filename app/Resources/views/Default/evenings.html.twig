@@ -1,0 +1,138 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    {% set hideHeadline = document.getProperty('hideHeadline') %}
+    {% if not hideHeadline %}
+        <div class="page-header">
+            {# we need to pipe the editable through the raw filter here as we saved it to a variable #}
+            <h1 class="underlined">Kegelabende {{ year }}</h1>
+        </div>
+    {% endif %}
+
+    {% if results|length > 0 %}
+
+        {% set months = [] %}
+        {% set eveningsPlayed = 0 %}
+        {% set usersAlltogether = 0 %}
+
+        <table class="table table-bordered table-condensed" id="evenings-list">
+            <tr>
+                <th>Datum</th>
+                <th class="text-center">Mitspieler</th>
+                <th class="text-center">Bahnmeister</th>
+                <th class="text-center">Sonnenkönig</th>
+                <th class="text-center">Neuner</th>
+                <th class="text-center">Kränze</th>
+                <th class="text-center">Banden</th>
+            </tr>
+            {% for monthKey, monthResults in results %}
+
+                <tr class="month-column">
+                    <td colspan="7">{{ monthnames[monthKey-1] }}</td>
+                </tr>
+
+                {% for eveningId, result in monthResults %}
+
+                    <tr id="evening-{{ eveningId }}">
+                        <td>
+                            <a href="{{ path('kegelabend', {'id': eveningId}) }}">
+                                {{ result['name'] }}
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            {# eveningUsers|join(', ') #}
+                            {{ result['players'] }}
+                            {# eveningUsers|length #}
+                        </td>
+                        <td class="text-center">
+                            {% if result['bahnmeister'] %}
+                                {{ result['bahnmeister'] }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if result['sonnenkoenig'] %}
+                                {{ result['sonnenkoenig'] }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if result['neuner'] > 0 %}
+                                {{ result['neuner'] }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if result['kraenze'] > 0 %}
+                                {{ result['kraenze'] }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {% if result['banden'] > 0 %}
+                                {{ result['banden'] }}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                        {# pimcore_action('eveningEvents', 'Default', null, { evening: evening }) #}
+                    </tr>
+
+                {% endfor %}
+
+            {% endfor %}
+            <tr class="all-column">
+                <th>{{ year }}</th>
+                <th class="text-center" colspan="3">
+                    {{ overalls['evenings'] }} Kegelabende
+                </th>
+                <th class="text-center">{{ overalls['neuner'] }}</th>
+                <th class="text-center">{{ overalls['kraenze'] }}</th>
+                <th class="text-center">{{ overalls['banden'] }}</th>
+            </tr>
+            <tr class="all-column">
+                <th>Durchschnitt</th>
+                <th class="text-center" colspan="3">
+                    {{ overalls['averagePlayers']|round(2, 'floor') }} Spieler pro Abend
+                </th>
+                <th class="text-center">{{ overalls['averageNeuner']|round(2, 'floor') }}</th>
+                <th class="text-center">{{ overalls['averageKraenze']|round(2, 'floor') }}</th>
+                <th class="text-center">{{ overalls['averageBanden']|round(2, 'floor') }}</th>
+            </tr>
+        </table>
+
+    {% else %}
+
+        <p>Für dieses Jahr sind noch keine Kegelabende eingetragen.</p>
+
+    {% endif %}
+
+    {#
+    {% set myObject = pimcore_object(15) %}
+    {{ myObject.getDate() }}
+    #}
+
+    <div id="evening-chooser" class="clearfix">
+        <h2>Ein anderes Jahr wählen:</h2>
+        <form action="">
+
+            <div class="row">
+                <div class="form-group col-xs-3">
+                    <select name="year" class="form-control">
+                        <option {% if year == 2018 %}selected="selected"{% endif %}>2018</option>
+                        <option {% if year == 2019 %}selected="selected"{% endif %}>2019</option>
+                    </select>
+                </div>
+
+                <input type="submit" value="Auswählen" class="btn btn-success">
+            </div>
+
+        </form>
+    </div>
+
+{% endblock %}

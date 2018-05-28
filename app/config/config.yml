@@ -1,0 +1,38 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: 'local/' }
+
+#pimcore_ecommerce_framework:
+#    decimal_scale: 4
+
+pimcore:
+    models:
+        class_overrides:
+            'Pimcore\Model\DataObject\NinepinsEvening\Listing': 'AppBundle\Model\DataObject\NinepinsEvening'
+
+#### REDIS CACHE
+#    cache:
+#        pools:
+#            redis:
+#                enabled: true
+#                connection:
+#                    server: localhost
+#                    database: 14
+
+#### FEATURE FLAGS
+#    flags:
+#        zend_date: true
+
+#### CLASS OVERRIDES EXAMPLES
+#    models:
+#        class_overrides:
+#            'Pimcore\Model\DataObject\News': 'AppBundle\Model\DataObject\News'
+#            'Pimcore\Model\DataObject\News\Listing': 'AppBundle\Model\DataObject\News\Listing'
+#            'Pimcore\Model\DataObject\Folder': 'AppBundle\Model\DataObject\Folder'
+#            'Pimcore\Model\Asset\Folder': 'AppBundle\Model\Asset\Folder'
+#            'Pimcore\Model\Asset\Image': 'AppBundle\Model\Asset\Image'
+#            'Pimcore\Model\Document\Page': 'AppBundle\Model\Document\Page'
+#            'Pimcore\Model\Document\Link': 'AppBundle\Model\Document\Link'
+#            'Pimcore\Model\Document\Listing': 'AppBundle\Model\Document\Listing'
